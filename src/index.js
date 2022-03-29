@@ -1,3 +1,7 @@
-import { init } from "./js/chistes-page";
+// import { init } from "./js/chistes-page";
 
-init();
+import { getUsers } from "./js/http-provider";
+
+// init();
+
+getUsers();
