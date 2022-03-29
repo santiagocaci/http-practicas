@@ -1,7 +1,7 @@
 const jokeUrl = "https://api.chucknorris.io/jokes/random";
 
 // 
-export const getJoke = async () => {
+const getJoke = async () => {
 
   try {
 
@@ -17,4 +17,8 @@ export const getJoke = async () => {
   } catch (error) {
     throw error;
   }
+};
+
+export{
+  getJoke,
 }

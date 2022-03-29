@@ -1,3 +1,3 @@
-import { getJoke } from "./js/http-provider";
+import { init } from "./js/chistes-page";
 
-getJoke().then(console.log); 
+init();
