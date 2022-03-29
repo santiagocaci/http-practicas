@@ -1,3 +1,3 @@
-import './styles.css';
+import { getJoke } from "./js/http-provider";
 
-console.log('Hello World');
+getJoke().then(console.log); 

@@ -1,6 +1,6 @@
-# Webpack Starter
+# HTTP
 
-Proyecto inicial para crear apps utilizando Webpack.
+Proyecto de practica con fetch
 
 ## Notas:
 
