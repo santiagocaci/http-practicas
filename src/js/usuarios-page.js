@@ -1,13 +1,16 @@
+import { getUsers } from "./http-provider";
 
 
 
-const body  = document.body;
+const body = document.body;
+let tbody;
+let pos = 0;
 
 const crearHtml = () => {
-    
-    const html = `
-    <h1 class="mt-5"> Usuarios</h1>
 
+  const html = `
+    <h1 class="mt-5"> Usuarios</h1>
+    <hr>
     <table class="table">
         <thead>
             <tr>
@@ -22,56 +25,63 @@ const crearHtml = () => {
     </table>
     `;
 
-    const div = document.createElement('div');
-    div.innerHTML = html;
-    body.appendChild( div );
+  const div = document.createElement('div');
+  div.innerHTML = html;
+  body.appendChild(div);
 
-    // Crear una referencia al TBODY
-    // ya que los TRs van dentro del tbody
-            // querySelector('tbody');
-            // Crear una variable para mantener la referencia?
+
+  // Crear una referencia al TBODY
+  // ya que los TRs van dentro del tbody
+  // querySelector('tbody');
+  // Crear una variable para mantener la referencia?
+  tbody = document.querySelector('tbody');
 
 }
 
 
 // La función crearFilaUsuario debería de recibir un UNICO usuario
 // con la siguiente estructura
-    // {
-    //     "id": 7,
-    //     "email": "michael.lawson@reqres.in",
-    //     "first_name": "Michael",
-    //     "last_name": "Lawson",
-    //     "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/follettkyle/128.jpg"
-    // }
-const crearFilaUsuario = ( usuario ) => {
+// {
+//     "id": 7,
+//     "email": "michael.lawson@reqres.in",
+//     "first_name": "Michael",
+//     "last_name": "Lawson",
+//     "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/follettkyle/128.jpg"
+// }
+const crearFilaUsuario = ({ email, first_name, last_name, avatar }) => {
 
-    // En la tabla deben de colocar un correlativo empezando en 1
-    // También deben de colocar el avatar
-
-    const html = `
-        <td scope="col"> 1. </td>
-        <td scope="col"> michael.lawson@reqres.in </td>
-        <td scope="col"> Michael Lawson </td>
+  // En la tabla deben de colocar un correlativo empezando en 1
+  // También deben de colocar el avatar
+  pos++;
+  const html = `
+        <td scope="col"> ${pos} </td>
+        <td scope="col"> ${email} </td>
+        <td scope="col"> ${first_name} ${last_name}</td>
         <td scope="col">
-            <img class="img-thumbnail" src="">
+            <img class="img-thumbnail" src=${avatar}>
         </td>
     `;
 
-    const tr = document.createElement('tr');
-    tr.innerHTML = html;
-
-    // Añadir el table row (tr) dentro del TBody creado anteriormente
+  const tr = document.createElement('tr');
+  tr.innerHTML = html;
+  // Añadir el table row (tr) dentro del TBody creado anteriormente
+  tbody.appendChild(tr);
 
 }
 
 
-export const init = async() => {
+export const init = async () => {
 
-    crearHtml();
+  crearHtml();
 
-    // Obtener la lista de usuarios usando el servicio creado
-    // Por cada usuario, llamar la función crearFila (for, forEach)
-    // Colocar el init en el index.js, para que se ejecute la creación
+  const usersArray = await getUsers();
+
+  usersArray.forEach(user => {
+    crearFilaUsuario(user);
+  });
+  // Obtener la lista de usuarios usando el servicio creado
+  // Por cada usuario, llamar la función crearFila (for, forEach)
+  // Colocar el init en el index.js, para que se ejecute la creación
 
 }
 

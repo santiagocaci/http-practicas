@@ -1,7 +1,11 @@
 // import { init } from "./js/chistes-page";
 
-import { getUsers } from "./js/http-provider";
+import { init } from "./js/usuarios-page";
+
+// import { getUsers } from "./js/http-provider";
 
 // init();
 
-getUsers();
+// getUsers();
+
+init();
