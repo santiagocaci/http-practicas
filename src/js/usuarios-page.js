@@ -4,7 +4,7 @@ import { getUsers } from "./http-provider";
 
 const body = document.body;
 let tbody;
-let pos = 0;
+
 
 const crearHtml = () => {
 
@@ -48,11 +48,10 @@ const crearHtml = () => {
 //     "last_name": "Lawson",
 //     "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/follettkyle/128.jpg"
 // }
-const crearFilaUsuario = ({ email, first_name, last_name, avatar }) => {
+const crearFilaUsuario = ({ email, first_name, last_name, avatar },pos) => {
 
   // En la tabla deben de colocar un correlativo empezando en 1
   // También deben de colocar el avatar
-  pos++;
   const html = `
         <td scope="col"> ${pos} </td>
         <td scope="col"> ${email} </td>
@@ -71,13 +70,14 @@ const crearFilaUsuario = ({ email, first_name, last_name, avatar }) => {
 
 
 export const init = async () => {
-
+  let pos = 0;
   crearHtml();
 
   const usersArray = await getUsers();
 
   usersArray.forEach(user => {
-    crearFilaUsuario(user);
+    pos = pos + 1;
+    crearFilaUsuario(user,pos);
   });
   // Obtener la lista de usuarios usando el servicio creado
   // Por cada usuario, llamar la función crearFila (for, forEach)
